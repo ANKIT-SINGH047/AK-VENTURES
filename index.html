@@ -6,188 +6,351 @@
 <title>AK VENTURES</title>
 
 <style>
+
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
+scroll-behavior:smooth;
 }
 
 body{
-height:100vh;
-display:flex;
-align-items:center;
-justify-content:center;
-font-family:Arial, sans-serif;
-color:#fff;
-overflow:hidden;
+font-family:Arial,sans-serif;
 background:#05070d;
-position:relative;
+color:white;
+overflow-x:hidden;
 }
 
-/* 🔥 Animated dark masculine gradient background */
-body::before{
-content:"";
-position:absolute;
-width:200%;
-height:200%;
-background:linear-gradient(120deg,#05070d,#0b1a2e,#12060a,#000000);
-animation:bgMove 10s infinite alternate ease-in-out;
-z-index:-3;
+/* BACKGROUND */
+
+.bg{
+position:fixed;
+inset:0;
+z-index:-5;
+
+background:
+radial-gradient(circle at 20% 20%, rgba(0,229,255,.15), transparent 40%),
+radial-gradient(circle at 80% 30%, rgba(255,59,59,.08), transparent 40%),
+linear-gradient(135deg,#05070d,#0b1020,#05070d);
+
+animation:bgMove 20s ease-in-out infinite alternate;
 }
 
 @keyframes bgMove{
-0%{transform:translate(0,0) scale(1);}
-100%{transform:translate(-10%,-10%) scale(1.2);}
+0%{transform:scale(1);}
+100%{transform:scale(1.15);}
 }
 
-/* ⚡ Moving light beams */
-.beam{
-position:absolute;
-width:2px;
-height:200%;
-background:linear-gradient(to bottom,transparent,#00bfff55,transparent);
-animation:beamMove 6s linear infinite;
-opacity:0.6;
+/* GRID */
+
+.grid{
+position:fixed;
+inset:0;
+z-index:-4;
+
+background-image:
+linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+
+background-size:60px 60px;
 }
 
-.beam:nth-child(1){left:20%; animation-delay:0s;}
-.beam:nth-child(2){left:50%; animation-delay:2s;}
-.beam:nth-child(3){left:80%; animation-delay:4s;}
+/* JET */
 
-@keyframes beamMove{
-0%{transform:translateY(100%);}
-100%{transform:translateY(-100%);}
+.fighter-jet{
+position:fixed;
+width:250px;
+z-index:-1;
+pointer-events:none;
+
+animation:jetFlight 22s linear infinite;
+
+filter:
+brightness(2)
+contrast(2)
+drop-shadow(0 0 25px rgba(255,255,255,.4));
 }
 
-/* container */
-.container{
+@keyframes jetFlight{
+
+0%{
+left:-300px;
+top:75%;
+transform:scale(.2) rotate(20deg);
+opacity:0;
+}
+
+5%{
+opacity:1;
+}
+
+30%{
+left:25%;
+top:45%;
+transform:scale(.8) rotate(-10deg);
+}
+
+55%{
+left:55%;
+top:15%;
+transform:scale(1.5) rotate(5deg);
+}
+
+80%{
+left:110%;
+top:35%;
+transform:scale(.8) rotate(-20deg);
+opacity:1;
+}
+
+100%{
+left:140%;
+top:45%;
+opacity:0;
+}
+}
+
+/* CONTRAIL */
+
+.contrail{
+position:fixed;
+height:3px;
+background:
+linear-gradient(90deg,
+rgba(0,229,255,.8),
+transparent);
+
+width:400px;
+
+top:40%;
+left:-450px;
+
+animation:trailMove 22s linear infinite;
+
+z-index:-2;
+}
+
+@keyframes trailMove{
+
+0%{
+left:-450px;
+opacity:0;
+}
+
+10%{
+opacity:1;
+}
+
+70%{
+left:100%;
+opacity:.7;
+}
+
+100%{
+left:120%;
+opacity:0;
+}
+}
+
+/* HERO */
+
+.hero{
+min-height:100vh;
+
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+
 text-align:center;
-max-width:900px;
-padding:40px;
-z-index:2;
+
+animation:heroReveal 2s ease;
 }
 
-/* 🔥 Main title */
+@keyframes heroReveal{
+
+0%{
+filter:blur(20px);
+opacity:0;
+transform:translateY(100px);
+}
+
+100%{
+filter:blur(0);
+opacity:1;
+transform:translateY(0);
+}
+}
+
 h1{
-font-size:clamp(3rem,8vw,7rem);
-letter-spacing:0.25em;
-background:linear-gradient(90deg,#00d4ff,#ffffff,#ff3b3b);
+font-size:clamp(3rem,8vw,8rem);
+
+letter-spacing:.2em;
+
+background:
+linear-gradient(
+90deg,
+#00e5ff,
+#ffffff,
+#4f8cff
+);
+
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
-animation:fadeIn 1.5s ease, glow 3s infinite alternate;
 }
 
-@keyframes glow{
-0%{text-shadow:0 0 10px #00d4ff33;}
-100%{text-shadow:0 0 40px #ff3b3b55;}
-}
-
-/* tagline animation */
 .tagline{
-margin-top:10px;
-font-size:clamp(1rem,2.5vw,1.8rem);
-letter-spacing:0.4em;
-opacity:0;
-animation:slideUp 1.5s ease forwards;
-animation-delay:0.5s;
-color:#ffffffcc;
+margin-top:20px;
+font-size:1.2rem;
+letter-spacing:.25em;
+color:#ddd;
 }
 
-/* founder */
-.founder{
-margin-top:15px;
-opacity:0;
-letter-spacing:0.15em;
-animation:slideUp 1.5s ease forwards;
-animation-delay:0.9s;
-color:#bbbbbb;
+/* SECTIONS */
+
+section{
+min-height:100vh;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+padding:40px;
 }
 
-/* manifesto */
-.manifesto{
-margin-top:50px;
+.card{
+
+max-width:900px;
+width:100%;
+
+padding:40px;
+
+background:rgba(255,255,255,.05);
+
+border:1px solid rgba(255,255,255,.08);
+
+backdrop-filter:blur(15px);
+
+border-radius:25px;
+}
+
+h2{
+color:#00e5ff;
+margin-bottom:20px;
+letter-spacing:.2em;
+}
+
+p{
 line-height:2;
-font-size:1rem;
-opacity:0;
-animation:slideUp 2s ease forwards;
-animation-delay:1.3s;
-color:#dddddd;
+color:#ddd;
 }
 
-/* animations */
-@keyframes fadeIn{
-from{opacity:0; transform:scale(0.9);}
-to{opacity:1; transform:scale(1);}
+.footer{
+font-size:1.2rem;
+letter-spacing:.2em;
+text-align:center;
 }
 
-@keyframes slideUp{
-from{opacity:0; transform:translateY(40px);}
-to{opacity:1; transform:translateY(0);}
-}
-
-/* ✨ hover glow effect */
-.container:hover h1{
-text-shadow:0 0 50px #00d4ff88;
-}
-
-/* floating particles */
-.particle{
-position:absolute;
-width:6px;
-height:6px;
-background:#ffffff22;
-border-radius:50%;
-animation:float 8s infinite linear;
-}
-
-@keyframes float{
-0%{transform:translateY(0); opacity:0;}
-20%{opacity:1;}
-100%{transform:translateY(-900px);}
-}
 </style>
 </head>
 
 <body>
 
-<!-- light beams -->
-<div class="beam"></div>
-<div class="beam"></div>
-<div class="beam"></div>
+<div class="bg"></div>
+<div class="grid"></div>
 
-<!-- particles -->
-<div class="particle" style="left:10%; top:90%; animation-delay:0s;"></div>
-<div class="particle" style="left:30%; top:95%; animation-delay:2s;"></div>
-<div class="particle" style="left:70%; top:85%; animation-delay:4s;"></div>
-<div class="particle" style="left:50%; top:100%; animation-delay:1s;"></div>
+<img src="fighterjet.png" class="fighter-jet">
+<div class="contrail"></div>
 
-<div class="container">
+<div class="hero">
+
 <h1>AK VENTURES</h1>
-<div class="tagline">UNDEFINED FOR A DEFINED REASON.</div>
-<div class="founder">FOUNDED BY MR. ANKIT SINGH (MR. A.K. SINGH)</div>
 
-<div class="manifesto">
-THE FUTURE IS BLIND.
+<div class="tagline">
+DEFINED BY VISION. BUILT BY DISCIPLINE.
+</div>
 
-THE PRESENT HAS EYES.
+</div>
 
-THE PAST HOLDS EXPERIENCE.
+<section>
 
-PRUDENCE IS DISCERNMENT — NOT DEVOTION.
+<div class="card">
 
-CURIOSITY CREATES.
-ACTION BUILDS.
-DISCIPLINE SUSTAINS.
+<h2>PURPOSE</h2>
+
+<p>
+AK VENTURES represents structured thinking,
+long-term vision, and meaningful action.
+</p>
+
+</div>
+
+</section>
+
+<section>
+
+<div class="card">
+
+<h2>FOUNDER</h2>
+
+<p>
+Founded by Ankit Singh.
+
+Built upon curiosity, discipline,
+continuous learning and independent thought.
+</p>
+
+</div>
+
+</section>
+
+<section>
+
+<div class="card">
+
+<h2>PHILOSOPHY</h2>
+
+<p>
+
+THE FUTURE IS NOT SEEN.
+
+IT IS CREATED.
+
+<br><br>
+
+DISCIPLINE BUILDS.
+
+CURIOSITY DRIVES.
+
+ACTION DEFINES.
+
+<br><br>
 
 OBSERVE.
-ADAPT.
-CONQUER.
 
-THE FUTURE IS NOT FOUND.
+LEARN.
 
-IT IS FORGED.
+EXECUTE.
+
+<br><br>
+
+THE FUTURE IS FORGED — NOT FOUND.
+
+</p>
+
 </div>
+
+</section>
+
+<section>
+
+<div class="footer">
+
+THE FUTURE BELONGS TO BUILDERS.
+
 </div>
+
+</section>
 
 </body>
 </html>
